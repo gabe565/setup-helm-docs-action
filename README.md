@@ -24,7 +24,7 @@ jobs:
   update-chart-metadata:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: gabe565/setup-helm-docs-action@v1
       - run: helm-docs
 ```
