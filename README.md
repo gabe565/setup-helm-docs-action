@@ -1,5 +1,5 @@
 # Setup Helm Docs Action
-This action installs [norwoodj/helm-docs](https://github.com/norwoodj/helm-docs).
+This action installs [norwoodj/helm-docs](https://github.com/norwoodj/helm-docs), a tool for automatically generating markdown documentation for Helm charts.
 
 # Usage
 

@@ -1,5 +1,5 @@
 name: Setup Helm Docs
-description: GitHub Action to install Helm Docs during CI/CD.
+description: Action that installs Helm Docs, a tool for automatically generating markdown documentation for Helm charts
 inputs:
   token:
     description: GitHub token
