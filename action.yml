@@ -1,5 +1,8 @@
 name: Setup Helm Docs
 description: Action that installs Helm Docs, a tool for automatically generating markdown documentation for Helm charts
+branding:
+  color: blue
+  icon: download
 inputs:
   token:
     description: GitHub token
