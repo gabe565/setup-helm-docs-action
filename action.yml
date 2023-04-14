@@ -55,8 +55,9 @@ runs:
 
         echo "Downloading $URL"
         mkdir -p "$DEST"
+        cd "$DEST"
         if [[ "$URL" == *.tar.gz ]]; then
           curl -sfL "$URL" \
-            | tar -xzf - -C "$DEST" "$FILENAME"
+            | tar -xzf - "$FILENAME"
         fi
         echo "$DEST" >>$GITHUB_PATH
