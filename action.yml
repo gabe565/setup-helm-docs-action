@@ -1,0 +1,62 @@
+name: Setup Helm Docs
+description: GitHub Action to install Helm Docs during CI/CD.
+inputs:
+  token:
+    description: GitHub token
+    default: ${{ github.token }}
+  version:
+    description: The Helm Docs version to install
+    default: latest
+outputs:
+  version:
+    description: The Helm Docs version that was installed
+    value: ${{ steps.version.install.version }}
+runs:
+  using: composite
+  steps:
+    - id: install
+      name: Install helm-docs
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+        VERSION: ${{ inputs.version }}
+      run: |
+        set -euo pipefail
+
+        if [[ "$VERSION" == latest ]]; then
+          VERSION=
+        fi
+
+        case "${{ runner.os }}" in
+          Linux)
+            OS=linux
+            FILENAME=helm-docs
+            ;;
+          macOS)
+            OS=darwin
+            FILENAME=helm-docs
+            ;;
+          Windows)
+            OS=windows
+            FILENAME=helm-docs.exe
+            ;;
+        esac
+
+        RELEASE="$(gh release view --repo=norwoodj/helm-docs --json=name,assets $VERSION)"
+        VERSION="$(jq -r '.name' <<<"$RELEASE")"
+        echo "version=$VERSION" >>$GITHUB_OUTPUT
+        echo "Installing helm-docs $VERSION..."
+
+        DEST="$RUNNER_TEMP/helm-docs"
+        URL="$(jq -r --arg OS "$OS" \
+          '.assets[] | select(.name | ascii_downcase | test($OS + "_(amd64|x86_64).(tar.gz|zip)$")) | .url' \
+          <<<"$RELEASE" \
+        )"
+
+        echo "Downloading $URL"
+        mkdir -p "$DEST"
+        if [[ "$URL" == *.tar.gz ]]; then
+          curl -sfL "$URL" \
+            | tar -xzf - -C "$DEST" "$FILENAME"
+        fi
+        echo "$DEST" >>$GITHUB_PATH
