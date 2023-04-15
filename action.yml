@@ -4,6 +4,9 @@ branding:
   color: blue
   icon: download
 inputs:
+  repo:
+    description: The Helm Docs repo to use
+    default: norwoodj/helm-docs
   token:
     description: GitHub token
     default: ${{ github.token }}
@@ -22,6 +25,7 @@ runs:
       shell: bash
       env:
         GH_TOKEN: ${{ inputs.token }}
+        GH_REPO: ${{ inputs.repo }}
         VERSION: ${{ inputs.version }}
       run: |
         set -euo pipefail
@@ -45,7 +49,7 @@ runs:
             ;;
         esac
 
-        RELEASE="$(gh release view --repo=norwoodj/helm-docs --json=name,assets $VERSION)"
+        RELEASE="$(gh release view --json=name,assets $VERSION)"
         VERSION="$(jq -r '.name' <<<"$RELEASE")"
         echo "version=$VERSION" >>$GITHUB_OUTPUT
         echo "Installing helm-docs $VERSION..."

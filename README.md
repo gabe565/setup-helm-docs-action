@@ -4,10 +4,11 @@ This action installs [norwoodj/helm-docs](https://github.com/norwoodj/helm-docs)
 ## Usage
 
 ### Inputs
-| Name      | Description                      | Required | Default               |
-|-----------|----------------------------------|----------|-----------------------|
-| `version` | The Helm Docs version to install | `false`  | `latest`              |
-| `token`   | GitHub token                     | `false`  | `${{ github.token }}` |
+| Name      | Description                      | Required | Default                                                       |
+|-----------|----------------------------------|----------|---------------------------------------------------------------|
+| `version` | The Helm Docs version to install | `false`  | `latest`                                                      |
+| `repo`    | The Helm Docs repo to use        | `false`  | [`norwoodj/helm-docs`](https://github.com/norwoodj/helm-docs) |
+| `token`   | GitHub token                     | `false`  | `${{ github.token }}`                                         |
 
 ### Outputs
 | Name      | Description                              |
