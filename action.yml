@@ -72,5 +72,7 @@ runs:
             mv "$FILENAME" "$DEST"
             rm app.zip
             ;;
+          *)
+            echo Invalid file type; exit 1;;
         esac
         echo "$DEST" >>$GITHUB_PATH
