@@ -13,7 +13,7 @@ inputs:
 outputs:
   version:
     description: The Helm Docs version that was installed
-    value: ${{ steps.version.install.version }}
+    value: ${{ steps.install.outputs.version }}
 runs:
   using: composite
   steps:
