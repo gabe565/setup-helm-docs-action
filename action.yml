@@ -63,8 +63,14 @@ runs:
         echo "Downloading $URL"
         mkdir -p "$DEST"
         cd "$DEST"
-        if [[ "$URL" == *.tar.gz ]]; then
-          curl -sfL "$URL" \
-            | tar -xzf - "$FILENAME"
-        fi
+        case "$URL" in
+          *.tar.gz)
+            curl -sfL "$URL" | tar -xzf - "$FILENAME";;
+          *.zip)
+            curl -sfL -o app.zip "$URL"
+            unzip app.zip "$FILENAME"
+            mv "$FILENAME" "$DEST"
+            rm app.zip
+            ;;
+        esac
         echo "$DEST" >>$GITHUB_PATH
