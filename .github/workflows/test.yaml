@@ -13,8 +13,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./
+        id: action
         with:
           version: ${{ matrix.version }}
+      - name: Check output
+        shell: bash
+        env:
+          VERSION: ${{ steps.action.outputs.version }}
+        run: |
+          if [[ -n "$VERSION" ]]; then
+            echo Got version output: "$VERSION"
+          else
+            echo Version output was empty
+            exit 1
+          fi
       - name: Binary exists
         shell: bash
         run: command -v helm-docs
