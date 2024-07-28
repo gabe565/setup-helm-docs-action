@@ -69,7 +69,6 @@ runs:
           *.zip)
             gh release download "$VERSION" --pattern="$ASSET"
             unzip "$ASSET" "$FILENAME"
-            mv "$FILENAME" "$DEST"
             rm "$ASSET"
             ;;
           *)
