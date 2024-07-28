@@ -2,5 +2,14 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "local>gabe565/renovate-config"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [".github/workflows/test.yaml"],
+      "matchStrings": ["version:\\n +- (?<currentValue>.*)\n"],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "norwoodj/helm-docs"
+    }
   ]
 }
