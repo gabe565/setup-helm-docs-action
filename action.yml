@@ -68,7 +68,7 @@ runs:
             gh release download "$VERSION" --pattern="$ASSET" --output=- | tar -xzf - "$FILENAME" ;;
           *.zip)
             gh release download "$VERSION" --pattern="$ASSET"
-            unzip "$ASSET" "$FILENAME"
+            unzip -o "$ASSET" "$FILENAME"
             rm "$ASSET"
             ;;
           *)
